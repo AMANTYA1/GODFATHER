@@ -7,7 +7,7 @@ import aiofiles
 import aiohttp
 import urllib3
 from TGN.utils.logger import log
-from TGN import client
+from TGN.services.telethon import tbot as client
 
 def cmd_regex_replace(cmd):
     cmd = str(cmd)
