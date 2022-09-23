@@ -12,7 +12,7 @@ from TGN.decorators import bot_cmd
 from telethon.utils import *
 from telethon.tl.functions.messages import ImportChatInviteRequest
 
-from TGM.plugins.checkers.utils.tools import getcards
+from TGN.plugins.checkers.utils.tools import getcards
 
 ccs = []
 
