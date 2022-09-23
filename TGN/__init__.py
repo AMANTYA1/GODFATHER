@@ -230,7 +230,7 @@ try:
     ubot2.start()
 except BaseException:
    print("Userbot Error ! Have you added a STRING_SESSION in deploying??")
-    sys.exit(1)'''
+    sys.exit(1)
 
 pbot = Client(
     ":memory:",
