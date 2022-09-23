@@ -108,6 +108,7 @@ if ENV:
     BOT_ID = int(os.environ.get("BOT_ID", None))
     ARQ_API_URL = "http://thearq.tech/"
     ARQ_API_KEY = ARQ_API
+    HANDLERS = os.environ.get("HANDLERS", "/")
 
     ALLOW_CHATS = os.environ.get("ALLOW_CHATS", True)
 
@@ -188,6 +189,8 @@ else:
     STRING_SESSION = Config.STRING_SESSION
     LASTFM_API_KEY = Config.LASTFM_API_KEY
     CF_API_KEY = Config.CF_API_KEY
+    HANDLERS = "/"
+
 
     try:
         BL_CHATS = {int(x) for x in Config.BL_CHATS or []}
