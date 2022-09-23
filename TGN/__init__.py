@@ -182,7 +182,7 @@ else:
     SUPPORT_CHAT = Config.SUPPORT_CHAT
     SPAMWATCH_SUPPORT_CHAT = Config.SPAMWATCH_SUPPORT_CHAT
     SPAMWATCH_API = Config.SPAMWATCH_API
-    #SESSION_STRING = Config.SESSION_STRING
+    SESSION_STRING = Config.SESSION_STRING
     INFOPIC = Config.INFOPIC
     BOT_USERNAME = Config.BOT_USERNAME
     STRING_SESSION = Config.STRING_SESSION
@@ -222,12 +222,12 @@ aiohttpsession = ClientSession()
 print("[INFO]: INITIALIZING ARQ CLIENT")
 arq = ARQ(ARQ_API_URL, ARQ_API_KEY, aiohttpsession)
 
-#ubot2 = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
-#try:
-    #ubot2.start()
-#except BaseException:
-   #print("Userbot Error ! Have you added a STRING_SESSION in deploying??")
-    #sys.exit(1)'''
+ubot2 = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
+try:
+    ubot2.start()
+except BaseException:
+   print("Userbot Error ! Have you added a STRING_SESSION in deploying??")
+    sys.exit(1)'''
 
 pbot = Client(
     ":memory:",
