@@ -23,7 +23,7 @@ from telethon.events import CallbackQuery, InlineQuery, NewMessage
 
 from TGN import HANDLERS, LOG_CHAT
 from TGN.services.telethon import tbot as client
-from TGN.func.tools import cmd_regex_replace
+from TGN.func.tool import cmd_regex_replace
 from TGN.plugins import LIST
 
 
