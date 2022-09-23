@@ -7,7 +7,7 @@ import requests
 from telethon import Button
 import telethon
 
-from TGN import uclient
+from TGN import ubot2 as uclient
 from TGN.decorators import bot_cmd
 from telethon.utils import *
 from telethon.tl.functions.messages import ImportChatInviteRequest
