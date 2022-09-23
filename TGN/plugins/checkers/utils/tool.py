@@ -6,7 +6,8 @@ import time
 import aiofiles
 import aiohttp
 import urllib3
-from mills.utils.logger import log
+from TGN.utils.logger import log
+from TGN import client
 
 def cmd_regex_replace(cmd):
     cmd = str(cmd)
