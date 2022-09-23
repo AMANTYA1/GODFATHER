@@ -21,7 +21,8 @@ from telethon.errors.rpcerrorlist import AuthKeyDuplicatedError
 from telethon.events import CallbackQuery, InlineQuery, NewMessage
 
 
-from TGN import HANDLERS, LOG_CHAT, client
+from TGN import HANDLERS, LOG_CHAT
+from TGN.services.telethon import tbot as client
 from TGN.func.tools import cmd_regex_replace
 from TGN.utils.locals import send
 from TGN.utils.logger import log
