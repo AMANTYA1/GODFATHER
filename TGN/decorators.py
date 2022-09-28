@@ -22,10 +22,11 @@ from telethon.events import CallbackQuery, InlineQuery, NewMessage
 
 
 from TGN import HANDLERS
-from TGN.services.telethon import tbot as client
+#from TGN.services.telethon import tbot as client
 from TGN.plugins.checkers.utils.tool import cmd_regex_replace
 
-
+me = client.get_me()
+uname = me.username
 
 def bot_cmd(pattern=None, *args, **kwargs):
     cmd_name = kwargs.get("cmd", False) or kwargs.get("cmds", False)
