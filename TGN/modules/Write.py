@@ -1,214 +1,51 @@
-import functools
+# @Mecorw
+# Dont Remove Credit
 
-import requests
-from pyrogram import filters
+import os
 
-from TGN.function.pluginhelpers import get_text
-from TGN import pbot
-
-API1 = "https://single-developers.up.railway.app?write="
-API2 = "https://single-developers.up.railway.app/write"
+from PIL import Image, ImageDraw, ImageFont
+from TGN.events import register
 
 
-def is_admin(func):
-    @functools.wraps(func)
-    async def oops(client, message):
-        is_admin = False
-        try:
-            user = await message.chat.get_member(message.from_user.id)
-            admin_strings = ("creator", "administrator")
-            if user.status not in admin_strings:
-                is_admin = False
+def text_set(text):
+    lines = []
+    if len(text) <= 55:
+        lines.append(text)
+    else:
+        all_lines = text.split("\n")
+        for line in all_lines:
+            if len(line) <= 55:
+                lines.append(line)
             else:
-                is_admin = True
-
-        except ValueError:
-            is_admin = True
-        if is_admin:
-            await func(client, message)
-        else:
-            await message.reply("**Only Admins can execute this command!**")
-
-    return oops
+                k = len(line) // 55
+                for z in range(1, k + 2):
+                    lines.append(line[((z - 1) * 55) : (z * 55)])
+    return lines[:25]
 
 
-@pbot.on_message(filters.command("write") & ~filters.edited & ~filters.bot)
-async def writer(client, message):
-    if message.reply_to_message:
-        try:
-            msg = await client.send_message(message.chat.id, "**Writing the text....**")
-        except:
-            return
-        try:
-            text = get_text(message.reply_to_message)
-        except:
-            return
-        if (
-            message.reply_to_message.video
-            or message.reply_to_message.document
-            or message.reply_to_message.photo
-            or message.reply_to_message.animation
-            or message.reply_to_message.sticker
-        ):
-            try:
-                await msg.edit("Sorry I can't get the text of replied message")
-                return
-            except:
-                return
-        if not text:
-            try:
-                await msg.edit("**Invalid Command Syntax**\n\n`/write [name]`")
-                return
-            except:
-                return
-        try:
-            req = requests.get(API1 + text.replace(" ", "%20"))
-        except:
-            return
-        try:
-            url = req.history[1].url
-        except:
-            return
-        try:
-            await msg.delete()
-        except:
-            return
-        try:
-            await message.reply_photo(
-                url,
-                caption=f"**Successfully Written** As {text}\n\nImage Link => {url}\n\n**By @kigo_omfo**",
-            )
-        except:
-            return
-
+@register(pattern="^/Write ?(.*)")
+async def writer(event):
+    if event.reply_to:
+        reply = await event.get_reply_message()
+        text = reply.message
+    elif event.pattern_match.group(1).strip():
+        text = event.text.split(maxsplit=1)[1]
     else:
-        try:
-            msg = await client.send_message(message.chat.id, "**Writing the text....**")
-        except:
-            return
-        try:
-            text = get_text(message)
-        except:
-            return
-        if not text:
-            try:
-                await msg.edit("**Invalid Command Syntax**\n\n`/write [name]`")
-                return
-            except:
-                return
-        try:
-            req = requests.get(API1 + text.replace(" ", "%20"))
-        except:
-            return
-        try:
-            url = req.history[1].url
-        except:
-            return
-        try:
-            await msg.delete()
-        except:
-            return
-        try:
-            await message.reply_photo(
-                url,
-                caption=f"**Successfully Written** As {text}\n\nImage Link => {url}\n\n**By @kigo_omfo**",
-            )
-        except:
-            return
-
-
-@pbot.on_message(filters.command("longwrite") & ~filters.edited & ~filters.bot)
-async def longwriter(client, message):
-    if message.reply_to_message:
-        try:
-            msg = await client.send_message(message.chat.id, "**Writing the text....**")
-        except:
-            return
-        try:
-            text = get_text(message.reply_to_message)
-        except:
-            return
-        if (
-            message.reply_to_message.video
-            or message.reply_to_message.document
-            or message.reply_to_message.photo
-            or message.reply_to_message.animation
-            or message.reply_to_message.sticker
-        ):
-            try:
-                await msg.edit("Sorry I can't get the text of replied message")
-                return
-            except:
-                return
-        if not text:
-            try:
-                await msg.edit("**Invalid Command Syntax**\n\n`/write [name]`")
-                return
-            except:
-                return
-        try:
-            body = {"text": f"{text}"}
-        except:
-            return
-        try:
-            req = requests.get(
-                API2, headers={"Content-Type": "application/json"}, json=body
-            )
-        except:
-            return
-        try:
-            url = req.history[1].url
-        except:
-            return
-        try:
-            await msg.delete()
-        except:
-            return
-        try:
-            await message.reply_photo(
-                url,
-                caption=f"**Successfully Written**\n\nImage Link => {url}\n\n**By @TGN_Ro_bot**",
-            )
-        except:
-            return
-
-    else:
-        try:
-            msg = await client.send_message(message.chat.id, "**Writing the text....**")
-        except:
-            return
-        try:
-            text = get_text(message)
-        except:
-            return
-        if not text:
-            try:
-                await msg.edit("**Invalid Command Syntax**\n\n`/write [name]`")
-                return
-            except:
-                return
-        try:
-            body = {"text": f"{text}"}
-        except:
-            return
-        try:
-            req = requests.get(
-                API2, headers={"Content-Type": "application/json"}, json=body
-            )
-        except:
-            return
-        try:
-            url = req.history[1].url
-        except:
-            return
-        try:
-            await msg.delete()
-        except:
-            return
-        try:
-            await message.reply_photo(
-                url,
-                caption=f"**Successfully Written**\n\nImage Link => {url}\n\n**By @TGN_Ro_bot**",
-            )
-        except:
-            return
+        return await event.reply("Give Some Text")
+    k = await event.reply("`Writing the text....`")
+    img = Image.open("TGN/resources/kertas.jpg")
+    draw = ImageDraw.Draw(img)
+    font = ImageFont.truetype("TGN/resources/assfont.ttf", 30)
+    x, y = 150, 140
+    lines = text_set(text)
+    line_height = font.getsize("hg")[1]
+    for line in lines:
+        draw.text((x, y), line, fill=(1, 22, 55), font=font)
+        y = y + line_height - 5
+    file = "null.jpg"
+    img.save(file)
+    await event.reply(file=file)
+    os.remove(file)
+    await k.delete()
+    
+  
