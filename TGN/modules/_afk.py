@@ -9,7 +9,7 @@ from telethon.tl.types import MessageEntityMention, MessageEntityMentionName, Us
 
 from TGN.events import register, callbackquery
 from TGN.blaze import get_readable_time
-from TGN.modules.mongo.afk_db import afk_db as db
+from TGN.modules.mongo import afk_db as db
 
 options = [
     "**{}** is here!, Was afk for {}",
